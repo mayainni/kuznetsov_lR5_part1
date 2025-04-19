@@ -7,20 +7,25 @@
 using namespace std;
 bool UserInputInt(string input){
     if(input.empty()) return false;
-
+    bool only = true;
+    for(char c : input){
+        if(!isdigit(c)){
+            only = false;
+            break;
+        }
+    }
     try
     {
         int number = stoi(input);
         if (number < 0) return false;
-        
+        if(!only) return false;
     }
     catch(const std::exception& e)
     { return false;}
 
     return true;
 }
-function<void()> EnterNumberInt(int& varLink, string label){
-    return [&varLink, label](){
+void EnterNumberInt(int& varLink, string label){
         string raw_input;
         cout << label << " = ";
         getline(cin,raw_input);
@@ -30,20 +35,9 @@ function<void()> EnterNumberInt(int& varLink, string label){
             getline(cin,raw_input);
         }
         varLink = stoi(raw_input);
-    };
+    
 }
-int task_0(){
-    int X;
-    while(true){
-        EnterNumberInt(X," ")();
-        if(cin.fail() || X <= 0){
-            cin.clear();
-            cin.ignore(10000,'\n');
-            cout << "";
-
-        }else{
-            return X;
-        }
-    }
+int task_0(int NumberA, int NumberB){
+    return NumberA * NumberB;
 }
 #endif
